@@ -8,12 +8,18 @@ import org.junit.Test;
  */
 class App{
 	
-	private static App app = new App();
+	private static volatile App app = null;
 	
 	private App(){
 		
 	}
+	
 	public static App getinstance(){
+		synchronized (App.class) {
+			if(app == null){
+				app = new App();
+			}
+		}
 		return app;
 	}
 	
